@@ -5,9 +5,9 @@ import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder'
 
 function App() {
   return (
-      <Layout>
+    <Layout>
       <BurgerBuilder />
-      </Layout>
+    </Layout>
   );
 }
 
