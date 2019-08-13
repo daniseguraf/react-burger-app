@@ -9,8 +9,6 @@ const orderSummary = (props) => {
     )
   })
 
-  console.log(ingredientSummary);
-
   return (
     <Fragment>
       <h3>Your order</h3>
