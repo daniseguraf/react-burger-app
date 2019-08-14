@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react'
 
+import Button from './../../UI/Button/Button'
+
 const orderSummary = (props) => {
   let ingredientSummary = Object.entries(props.ingredients).map(el => {
     return (
@@ -17,6 +19,8 @@ const orderSummary = (props) => {
       </ul>
       <p>Total price: {props.totalPrice.toFixed(2)}</p>
       <p>Continue to checkout?</p>
+      <Button type="Danger">CANCEL</Button>
+      <Button type="Success">CONTINUE</Button>
     </Fragment>
   )
 }
