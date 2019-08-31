@@ -1,7 +1,13 @@
 import React from 'react'
 
+import classes from './DrawerToggle.module.css'
+
 const drawerToggle = (props) => (
-  <button onClick={props.sideDrawerHandler}>Open</button>
+  <div className={classes.DrawerToggle} onClick={props.sideDrawerHandler}>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 )
 
 export default drawerToggle
