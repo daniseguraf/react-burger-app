@@ -11,7 +11,9 @@ class Layout extends Component {
   }
 
   open = () => {
-    this.setState({isOpen: true})
+    this.setState((prevState) => {
+      return { isOpen: !prevState.isOpen }
+    })
   }
 
   sideDrawerClose = () => {
