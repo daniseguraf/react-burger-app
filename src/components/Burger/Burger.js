@@ -19,9 +19,9 @@ const burger = (props) => {
 
   return (
     <div className={styles.Burger}>
-      <BurgerIngredient type="bread-top"/>
+      <BurgerIngredient key="top" type="bread-top"/>
       {transformedIngredients }
-      <BurgerIngredient type="bread-bottom" />
+      <BurgerIngredient key="bottom" type="bread-bottom" />
     </div>
   )
 }
