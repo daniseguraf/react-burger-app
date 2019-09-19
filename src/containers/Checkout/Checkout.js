@@ -11,6 +11,7 @@ class Checkout extends Component {
       bacon: 1
     }
   }
+
   render() {
     return <CheckoutSummary ingredients={this.state.ingredients} />
   }
