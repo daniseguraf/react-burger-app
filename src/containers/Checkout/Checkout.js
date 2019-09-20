@@ -1,6 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+
+import { Route } from 'react-router-dom'
 
 import CheckoutSummary from './../../components/Order/CheckoutSummary/CheckoutSummary'
+import ContactData from './ContactData/ContactData'
 
 class Checkout extends Component {
   state = {
@@ -13,8 +16,6 @@ class Checkout extends Component {
   }
 
   cancel = () => {
-    console.log('cancel');
-
     this.props.history.goBack()
   }
 
@@ -23,12 +24,27 @@ class Checkout extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
+    const query = new URLSearchParams(this.props.location.search)
+
+    const ingredients = {};
+
+    for(let el of query.entries()) {
+      ingredients[el[0]] = +el[1]
+    }
+
+    this.setState({ingredients: ingredients})
+
+
 
   }
 
   render() {
-    return <CheckoutSummary ingredients={this.state.ingredients} cancel={this.cancel} continue={this.continue} />
+    return (
+      <Fragment>
+        <CheckoutSummary ingredients={this.state.ingredients} cancel={this.cancel} continue={this.continue} />
+        <Route path={this.props.match.path + '/contact-data'} component={ContactData} />
+      </Fragment>
+    )
   }
 }
 
