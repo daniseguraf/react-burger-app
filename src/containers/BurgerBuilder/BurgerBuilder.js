@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-
 import axios from './../../axios-orders'
 
 import Burger from '../../components/Burger/Burger'
@@ -115,8 +114,6 @@ class BurgerBuilder extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
-
     axios.get('/ingredients.json')
     .then(response => {
       this.setState({ingredients: response.data});
@@ -125,50 +122,53 @@ class BurgerBuilder extends Component {
   }
 
   render() {
-    const disabledInfo = {
-      ...this.state.ingredients
-    }
+    const disabledInfo = { ...this.state.ingredients }
+    const {
+      ingredients,
+      totalPrice,
+      isDisabled,
+      purchasable,
+      purchasing,
+      loading,
+      error
+    } = this.state
 
     for(let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0;
     }
 
-    let orderSummary = null;
+    let orderSummary = loading ? <Spinner /> : null;
 
-    if (this.state.loading) {
-      orderSummary = <Spinner />
-    }
-
-    if (this.state.ingredients) {
+    ingredients && (
       orderSummary = <OrderSummary
-        ingredients={this.state.ingredients}
-        totalPrice={this.state.totalPrice}
+        ingredients={ingredients}
+        totalPrice={totalPrice}
         cancel={this.modalClose}
         continue={this.purchaseContinueHandler} />
-    }
+    )
 
-    let burger = this.state.error ? <p>Ingredients can't be loaded.</p> : <Spinner />;
+    let burger = error ? <p>Ingredients can't be loaded.</p> : <Spinner />;
 
-    if(this.state.ingredients) {
+    ingredients && (
       burger = (
         <Fragment>
-          <Burger ingredients={this.state.ingredients} />
+          <Burger ingredients={ingredients} />
           <BuildControls
             ingredientAdded={this.addIngredientHandler}
             ingredientRemoved={this.removeIngredientHandler}
-            isDisabled={this.state.isDisabled}
+            isDisabled={isDisabled}
             disabled={disabledInfo}
-            totalPrice={this.state.totalPrice}
-            purchasable={this.state.purchasable}
+            totalPrice={totalPrice}
+            purchasable={purchasable}
             ordered={this.purchaseHandler} />
         </Fragment>
       )
-    }
+    )
 
     return (
       <Fragment>
-        <Modal show={this.state.purchasing} modalClose={this.modalClose}>
-          {orderSummary }
+        <Modal show={purchasing} modalClose={this.modalClose}>
+          { orderSummary }
         </Modal>
 
         {burger}
