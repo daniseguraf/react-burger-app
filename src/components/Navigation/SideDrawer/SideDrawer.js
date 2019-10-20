@@ -6,10 +6,10 @@ import Backdrop from './../../UI/Backdrop/Backdrop'
 
 import classes from './SideDrawer.module.css'
 
-const sideDrawer = (props) => {
+const sideDrawer = ({ isOpen, close }) => {
   return (
     <Fragment>
-      <div className={[classes.SideDrawer, props.isOpen ? classes.Open : classes.Close ].join(' ')} >
+      <div className={[classes.SideDrawer, isOpen ? classes.Open : classes.Close ].join(' ')} >
         <div className={classes.Logo}>
           <Logo />
         </div>
@@ -17,7 +17,7 @@ const sideDrawer = (props) => {
           <NavigationItems />
         </nav>
       </div>
-      <Backdrop show={props.isOpen}  close={props.close} />
+      <Backdrop show={isOpen}  close={close} />
     </Fragment>
   )
 }

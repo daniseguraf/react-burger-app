@@ -2,12 +2,10 @@ import React from 'react'
 
 import classes from './DrawerToggle.module.css'
 
-const drawerToggle = (props) => (
-  <div className={classes.DrawerToggle} onClick={props.sideDrawerHandler}>
+export default ({sideDrawerHandler}) => (
+  <div className={classes.DrawerToggle} onClick={sideDrawerHandler}>
     <div></div>
     <div></div>
     <div></div>
   </div>
 )
-
-export default drawerToggle
