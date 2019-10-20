@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 
 import Toolbar from './../Navigation/Toolbar/Toolbar'
 import SideDrawer from './../Navigation/SideDrawer/SideDrawer'
-
 import styles from './Layout.module.css'
 
 class Layout extends Component {
@@ -21,12 +20,15 @@ class Layout extends Component {
   }
 
   render() {
+    const { isOpen } = this.state;
+    const { children } = this.props;
+
     return (
       <Fragment>
         <Toolbar sideDrawerHandler={this.open} />
-        <SideDrawer isOpen={this.state.isOpen} close={this.sideDrawerClose} />
+        <SideDrawer isOpen={isOpen} close={this.sideDrawerClose} />
         <main className={styles.Content}>
-          {this.props.children}
+          {children}
         </main>
       </Fragment>
     )
