@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react'
-
 import { Route } from 'react-router-dom'
 
 import CheckoutSummary from './../../components/Order/CheckoutSummary/CheckoutSummary'
@@ -19,13 +18,12 @@ class Checkout extends Component {
     this.props.history.goBack()
   }
 
-  continue = () => {
-    this.props.history.replace('/checkout/contact-data')
+  next = () => {
+    this.props.history.replace('/checkout/contact-data/')
   }
 
   componentDidMount() {
     const query = new URLSearchParams(this.props.location.search)
-
     const ingredients = {};
 
     for(let el of query.entries()) {
@@ -33,16 +31,20 @@ class Checkout extends Component {
     }
 
     this.setState({ingredients: ingredients})
-
-
-
   }
 
   render() {
     return (
       <Fragment>
-        <CheckoutSummary ingredients={this.state.ingredients} cancel={this.cancel} continue={this.continue} />
-        <Route path={this.props.match.path + '/contact-data'} component={ContactData} />
+        <CheckoutSummary
+          ingredients={this.state.ingredients}
+          cancel={this.cancel}
+          next={this.next}
+        />
+        <Route
+          path={`${this.props.match.path}/contact-data`}
+          render={() => <ContactData {...this.state.ingredients} /> }
+        />
       </Fragment>
     )
   }

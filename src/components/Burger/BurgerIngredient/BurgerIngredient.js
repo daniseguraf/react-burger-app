@@ -6,8 +6,9 @@ import styles from './BurgerIngredient.module.css'
 class BurgerIngredient extends Component {
   render() {
     let ingredient = null;
+    const { type } = this.props
 
-    switch (this.props.type) {
+    switch (type) {
       case ('bread-bottom'):
         ingredient = <div className={styles.BreadBottom}></div>;
         break;

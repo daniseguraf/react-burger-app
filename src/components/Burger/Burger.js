@@ -3,9 +3,9 @@ import React from 'react'
 import styles from './Burger.module.css'
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient'
 
-const burger = (props) => {
-  let transformedIngredients = Object.keys(props.ingredients).map((keyIg) => {
-    return [...Array(props.ingredients[keyIg])].map((_, i) => {
+const burger = ({ingredients}) => {
+  let transformedIngredients = Object.keys(ingredients).map((keyIg) => {
+    return [...Array(ingredients[keyIg])].map((_, i) => {
       return (<BurgerIngredient key={keyIg + i} type={keyIg} />)
     })
   })
@@ -13,14 +13,10 @@ const burger = (props) => {
     return prevValue.concat(currentValue)
   }, []);
 
-  if (transformedIngredients.length === 0) {
-    transformedIngredients = <p>Please start adding ingredients!</p>;
-  }
-
   return (
     <div className={styles.Burger}>
       <BurgerIngredient key="top" type="bread-top"/>
-      {transformedIngredients }
+      {transformedIngredients.length === 0 ? <p>Please start adding ingredients!</p> : transformedIngredients }
       <BurgerIngredient key="bottom" type="bread-bottom" />
     </div>
   )

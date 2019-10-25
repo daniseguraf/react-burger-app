@@ -78,34 +78,9 @@ class BurgerBuilder extends Component {
   purchaseContinueHandler = () => {
     // this.setState({ loading: true })
 
-    // const order = {
-    //   ingredients: this.state.ingredients,
-    //   price: this.state.totalPrice,
-    //   customer: {
-    //     name: 'Molly',
-    //     address: {
-    //       street: 'Teststreet 1',
-    //       zipCode: '23432',
-    //       country: 'Peru'
-    //     },
-    //     email: 'test@test.com'
-    //   },
-    //   deliveryMethod: 'fastest'
-    // }
-
-    // axios.post('/orders.json', order)
-    //   .then(response => {
-    //     this.setState({ loading: false, purchasing: false  })
-    //   })
-    //   .catch(error => {
-    //     this.setState({ loading: false, purchasing: false })
-    //   })
-
-    const queryParams = [];
-
-    for(let i in this.state.ingredients) {
-      queryParams.push(`${encodeURIComponent(i)}=${encodeURIComponent(this.state.ingredients[i])}`)
-    }
+    const queryParams = Object.keys(this.state.ingredients).map((el) => {
+      return (`${encodeURIComponent(el)}=${encodeURIComponent(this.state.ingredients[el])}`)
+    })
 
     this.props.history.push({
       pathname: '/checkout',
@@ -123,15 +98,7 @@ class BurgerBuilder extends Component {
 
   render() {
     const disabledInfo = { ...this.state.ingredients }
-    const {
-      ingredients,
-      totalPrice,
-      isDisabled,
-      purchasable,
-      purchasing,
-      loading,
-      error
-    } = this.state
+    const { ingredients, totalPrice, isDisabled, purchasable, purchasing, loading, error } = this.state
 
     for(let key in disabledInfo) {
       disabledInfo[key] = disabledInfo[key] <= 0;
@@ -172,6 +139,7 @@ class BurgerBuilder extends Component {
         </Modal>
 
         {burger}
+
       </Fragment>
     )
   }
